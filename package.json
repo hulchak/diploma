@@ -1,0 +1,19 @@
+{
+  "workspaces": [
+    "client",
+    "server"
+  ],
+  "type": "module",
+  "scripts": {
+    "dev": "concurrently -r \"npm run dev --workspace=client\" \"npm run dev --workspace=server\"",
+    "lint": "eslint client server --ext js,jsx --max-warnings 0",
+    "build": "npm run build --workspace=client && npm run build --workspace=server"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.1",
+    "eslint": "^8.50.0",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "cors": "^2.8.5"
+  }
+}
