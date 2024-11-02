@@ -8,16 +8,26 @@ import {store} from "./store/store.js";
 import "./styles/index.css";
 
 const App = lazy(() => import("./App.jsx"));
-const Cats = lazy(() => import("./components/cats/Cats.jsx"));
+const Home = lazy(() => import("./Home.jsx"));
+const Teacher = lazy(() => import("./components/teacher/Teacher.jsx"));
+const Student = lazy(() => import("./components/student/Student.jsx"));
 
 const router = createBrowserRouter([
   {
     path: "/",
+    element: <Home/>,
+  },
+  {
+    path: "/profile",
     element: <App/>,
     children: [
       {
-        path: "cats",
-        element: <Cats/>
+        path: "teacher",
+        element: <Teacher/>
+      },
+      {
+        path: "student",
+        element: <Student/>
       }
     ]
   }

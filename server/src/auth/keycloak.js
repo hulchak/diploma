@@ -3,6 +3,8 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
+//to do remane realm
+
 const keycloakConfig = {
     "auth-server-url": process.env.KEYCLOAK_URL,
     "realm": process.env.KEYCLOAK_REALM,

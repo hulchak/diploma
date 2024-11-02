@@ -1,6 +1,6 @@
 import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
 import {BASE_URL} from "../../config";
-import {authService} from "../../service/authService.js";
+// import {authService} from "../../service/authService.js";
 
 export const catApiSlice = createApi({
   reducerPath: "catApi",
@@ -8,8 +8,9 @@ export const catApiSlice = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: BASE_URL,
     prepareHeaders: (headers) => {
-      const authResult = authService.getToken();
-      headers.set("Authorization", "Bearer " + authResult);
+      console.log(headers);
+      // const authResult = authService.getToken();
+      // headers.set("Authorization", "Bearer " + authResult);
       headers.set("Accept", "application/json");
       headers.set("Content-Type", "application/json");
     }

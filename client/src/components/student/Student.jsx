@@ -3,7 +3,7 @@ import {useAddCatMutation, useFetchCatsQuery} from "../../store/cats/catApiSlice
 import {useDispatch} from "react-redux";
 import {catSelected} from "../../store/cats/catSlice.js";
 
-export default function Cats() {
+export default function Student() {
 
   const [name, setName] = useState("");
   const [colour, setColour] = useState("");
@@ -28,7 +28,7 @@ export default function Cats() {
       <button className="px-3 text-center font-semibold uppercase rounded-xl py-3"
               onClick={() => dispatch(catSelected(cat))}
       >
-        Обрати кота
+        Обрати студента
       </button>
     </div>
   )

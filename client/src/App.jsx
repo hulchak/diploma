@@ -10,6 +10,7 @@ export default function App() {
       return <div>Loading...</div>;
   }
 
+  console.log(authService.getUserInfo('name'));
   return (
     <>
       <Header/>

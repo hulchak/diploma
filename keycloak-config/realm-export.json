@@ -83,7 +83,25 @@
         "clientRole": false,
         "containerId": "82903626-d8c1-4eba-90b1-bc03b07a444d",
         "attributes": {}
-      }
+      },
+      {
+      "id": "8fcb52b2-826f-4153-9ce3-92dce0a9aad9",
+      "name": "teacher",
+      "description": "Role for teachers with specific access rights",
+      "composite": false,
+      "clientRole": false,
+      "containerId": "82903626-d8c1-4eba-90b1-bc03b07a444d",
+      "attributes": {}
+    },
+    {
+      "id": "fe2d2fda-1ebb-4db9-944d-8e7da1c43b3c",
+      "name": "student",
+      "description": "Role for students with specific access rights",
+      "composite": false,
+      "clientRole": false,
+      "containerId": "82903626-d8c1-4eba-90b1-bc03b07a444d",
+      "attributes": {}
+    }
     ],
     "client": {
       "app": [],
@@ -405,13 +423,13 @@
   },
   "groups": [],
   "defaultRole": {
-    "id": "e3cfe152-8f94-4bc6-9c73-447c9af32af1",
-    "name": "default-roles-example",
-    "description": "${role_default-roles}",
-    "composite": true,
-    "clientRole": false,
-    "containerId": "82903626-d8c1-4eba-90b1-bc03b07a444d"
-  },
+      "id": "8fcb52b2-826f-4153-9ce3-92dce0a9aad9",
+      "name": "teacher",
+      "description": "Role for teachers with specific access rights",
+      "composite": false,
+      "clientRole": false,
+      "containerId": "82903626-d8c1-4eba-90b1-bc03b07a444d"
+    },
   "requiredCredentials": [
     "password"
   ],
