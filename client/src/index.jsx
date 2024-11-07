@@ -12,10 +12,6 @@ const Home = lazy(() => import('./Home.jsx'));
 const Teacher = lazy(() => import('./components/teacher/Teacher.jsx'));
 const Student = lazy(() => import('./components/student/Student.jsx'));
 
-const ProtectedRoute = ({ element }) => (
-  <Provider store={store}>{element}</Provider>
-);
-
 const router = createBrowserRouter([
   {
     path: '/',
@@ -23,15 +19,15 @@ const router = createBrowserRouter([
   },
   {
     path: '/profile',
-    element: <ProtectedRoute element={<App />} />,
+    element: <App />,
     children: [
       {
         path: 'teacher',
-        element: <ProtectedRoute element={<Teacher />} />,
+        element: <Teacher />,
       },
       {
         path: 'student',
-        element: <ProtectedRoute element={<Student />} />,
+        element: <Student />,
       },
     ],
   },
@@ -42,7 +38,9 @@ const root = createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Suspense fallback={<div>Loading...</div>}>
-      <RouterProvider router={router} />
+      <Provider store={store}>
+        <RouterProvider router={router} />
+      </Provider>
     </Suspense>
   </React.StrictMode>
 );

@@ -1,5 +1,4 @@
 services:
-
   mongodb:
     image: mongo:7.0.3
     ports:
@@ -8,6 +7,7 @@ services:
   keycloak:
     image: keycloak/keycloak:22.0.5
     volumes:
+      - ./keycloak-data:/opt/keycloak/data
       - ./keycloak-config:/opt/keycloak/data/import
     environment:
       KEYCLOAK_ADMIN: admin
@@ -15,4 +15,4 @@ services:
     command:
       - start-dev --import-realm
     ports:
-      - "8080:8080"
+      - '8080:8080'

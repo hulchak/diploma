@@ -1,0 +1,81 @@
+[
+  {
+    "name": "Course 1",
+    "createdBy": "60d0fe4f5311236168a109ca",
+    "duration": 10,
+    "startDate": "2023-01-01T00:00:00.000Z",
+    "endDate": "2023-01-10T00:00:00.000Z",
+    "description": "Description for Course 1",
+    "students": ["60d0fe4f5311236168a109cb"],
+    "availableForGroups": ["60d0fe4f5311236168a109cc"],
+    "content": [
+      {
+        "moduleTitle": "Module 1",
+        "lessons": [
+          {
+            "lessonTitle": "Lesson 1",
+            "lessonType": "video",
+            "duration": 30,
+            "videoUrl": "http://example.com/video1",
+            "materials": ["Material 1"]
+          }
+        ]
+      }
+    ],
+    "lastUpdated": "2023-01-01T00:00:00.000Z",
+    "rating": 4.5,
+    "isPublished": true
+  },
+  {
+    "name": "Course 2",
+    "createdBy": "60d0fe4f5311236168a109cd",
+    "duration": 15,
+    "startDate": "2023-02-01T00:00:00.000Z",
+    "endDate": "2023-02-15T00:00:00.000Z",
+    "description": "Description for Course 2",
+    "students": ["60d0fe4f5311236168a109ce"],
+    "availableForGroups": ["60d0fe4f5311236168a109cf"],
+    "content": [
+      {
+        "moduleTitle": "Module 2",
+        "lessons": [
+          {
+            "lessonTitle": "Lesson 2",
+            "lessonType": "quiz",
+            "duration": 45,
+            "materials": ["Material 2"]
+          }
+        ]
+      }
+    ],
+    "lastUpdated": "2023-02-01T00:00:00.000Z",
+    "rating": 4.0,
+    "isPublished": false
+  },
+  {
+    "name": "Course 3",
+    "createdBy": "60d0fe4f5311236168a109d0",
+    "duration": 20,
+    "startDate": "2023-03-01T00:00:00.000Z",
+    "endDate": "2023-03-20T00:00:00.000Z",
+    "description": "Description for Course 3",
+    "students": ["60d0fe4f5311236168a109d1"],
+    "availableForGroups": ["60d0fe4f5311236168a109d2"],
+    "content": [
+      {
+        "moduleTitle": "Module 3",
+        "lessons": [
+          {
+            "lessonTitle": "Lesson 3",
+            "lessonType": "assignment",
+            "duration": 60,
+            "materials": ["Material 3"]
+          }
+        ]
+      }
+    ],
+    "lastUpdated": "2023-03-01T00:00:00.000Z",
+    "rating": 4.8,
+    "isPublished": true
+  }
+]
