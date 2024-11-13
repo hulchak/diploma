@@ -10,6 +10,7 @@ export const catApiSlice = createApi({
     prepareHeaders: (headers) => {
       console.log(headers);
       const authResult = authService.getToken();
+      console.log(authResult);
       headers.set('Authorization', 'Bearer ' + authResult);
       headers.set('Accept', 'application/json');
       headers.set('Content-Type', 'application/json');

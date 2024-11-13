@@ -1,0 +1,16 @@
+[
+  {
+    "name": "Alice Johnson",
+    "subjects": ["Math", "Physics"],
+    "email": "alice.johnson@example.com",
+    "keycloakId": "123e4567-e89b-12d3-a456-426614174000",
+    "courses": ["60d0fe4f5311236168a109ca", "60d0fe4f5311236168a109cb"]
+  },
+  {
+    "name": "Bob Brown",
+    "subjects": ["Chemistry", "Biology"],
+    "email": "bob.brown@example.com",
+    "keycloakId": "123e4567-e89b-12d3-a456-426614174001",
+    "courses": ["60d0fe4f5311236168a109cc", "60d0fe4f5311236168a109cd"]
+  }
+]

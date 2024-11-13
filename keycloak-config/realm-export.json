@@ -418,10 +418,7 @@
           "value": "password123"
         }
       ],
-      "realmRoles": ["student"],
-      "attributes": {
-        "groupId": ["123"]
-      }
+      "realmRoles": ["student"]
     }
   ],
 

@@ -25,7 +25,8 @@
     ],
     "lastUpdated": "2023-01-01T00:00:00.000Z",
     "rating": 4.5,
-    "isPublished": true
+    "isPublished": true,
+    "uuid": "uuid1"
   },
   {
     "name": "Course 2",
@@ -53,7 +54,8 @@
     ],
     "lastUpdated": "2023-02-01T00:00:00.000Z",
     "rating": 4.0,
-    "isPublished": false
+    "isPublished": false,
+    "uuid": "uuid2"
   },
   {
     "name": "Course 3",
@@ -81,6 +83,7 @@
     ],
     "lastUpdated": "2023-03-01T00:00:00.000Z",
     "rating": 4.8,
-    "isPublished": true
+    "isPublished": true,
+    "uuid": "uuid3"
   }
 ]
