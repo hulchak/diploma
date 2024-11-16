@@ -36,7 +36,7 @@ const CourseSchema = new Schema({
   ],
   ratings: [RatingSchema],
   lastUpdated: { type: Date, default: Date.now },
-  rating: { type: Number, min: 0, max: 5 },
+  rating: { type: Number, min: 0, max: 5, default: 0 },
   isPublished: { type: Boolean, default: false },
   uuid: {
     type: String,

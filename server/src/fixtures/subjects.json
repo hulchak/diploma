@@ -1,0 +1,23 @@
+[
+  {
+    "name": "Програмування",
+    "description": "Опис предмету Програмування",
+    "teacher": "60d0fe4f5311236168a109ca",
+    "students": ["60d0fe4f5311236168a109cb"],
+    "uuid": "uuid-subject1"
+  },
+  {
+    "name": "Бази даних",
+    "description": "Опис предмету Бази даних",
+    "teacher": "60d0fe4f5311236168a109cd",
+    "students": ["60d0fe4f5311236168a109ce"],
+    "uuid": "uuid-subject2"
+  },
+  {
+    "name": "Мережі",
+    "description": "Опис предмету Мережі",
+    "teacher": "60d0fe4f5311236168a109d0",
+    "students": ["60d0fe4f5311236168a109d1"],
+    "uuid": "uuid-subject3"
+  }
+]

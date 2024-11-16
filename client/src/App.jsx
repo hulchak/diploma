@@ -3,11 +3,12 @@ import { authService } from './service/authService.js';
 import Header from './components/navigarion/Header.jsx';
 import { jwtDecode } from 'jwt-decode';
 import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function App() {
   const isLoggedIn = authService.isLoggedIn();
   const navigate = useNavigate();
+  const [role, setRole] = useState('');
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -18,14 +19,26 @@ export default function App() {
       const isStudent = roles.includes('student');
 
       if (isTeacher) {
-        navigate('/profile/teacher');
+        setRole('teacher');
       } else if (isStudent) {
+        setRole('student');
+      } else {
+        setRole('guest');
+      }
+    }
+  }, [isLoggedIn, navigate]);
+
+  useEffect(() => {
+    if (role) {
+      if (role === 'teacher') {
+        navigate('/profile/teacher');
+      } else if (role === 'student') {
         navigate('/profile/student');
       } else {
         navigate('/');
       }
     }
-  }, [isLoggedIn, navigate]);
+  }, [role]);
 
   if (!isLoggedIn) {
     return <div>Loading...</div>;
@@ -35,7 +48,7 @@ export default function App() {
 
   return (
     <>
-      <Header name={name} />
+      <Header name={name} role={role} />
       <div className="pt-[75px]">
         <Outlet />
       </div>

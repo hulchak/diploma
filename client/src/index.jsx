@@ -11,6 +11,7 @@ const App = lazy(() => import('./App.jsx'));
 const Home = lazy(() => import('./Home.jsx'));
 const Teacher = lazy(() => import('./components/teacher/Teacher.jsx'));
 const Student = lazy(() => import('./components/student/Student.jsx'));
+const Courses = lazy(() => import('./components/courses/Courses.jsx'));
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
       {
         path: 'student',
         element: <Student />,
+      },
+      {
+        path: 'courses',
+        element: <Courses />,
       },
     ],
   },
