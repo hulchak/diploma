@@ -1,11 +1,8 @@
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { authService } from '../../service/authService.js';
 // import { useSelector } from 'react-redux';
-// import { selectCurrentCat } from '../../store/cats/catSlice.js';
 
 export default function Header({ name, role }) {
-  // const navigate = useNavigate();
-  // const cat = useSelector(selectCurrentCat);
   const logout = () => {
     authService.logout('http://localhost:3000/');
   };

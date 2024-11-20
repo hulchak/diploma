@@ -1,44 +1,48 @@
 // import { useState } from 'react';
 import { useFetchCoursesQuery } from '../../store/courses/coursesApiSlice.js';
 // import {useDispatch} from "react-redux";
-// import { catSelected } from '../../store/cats/catSlice.js';
 
 export default function Student() {
-  // const [name, setName] = useState('');
-  // const [colour, setColour] = useState('');
-
-  // const dispatch = useDispatch();
-
   const { data } = useFetchCoursesQuery();
   console.log(data);
-  // const [addCat] = useAddCatMutation();
-
-  // const cats = data?.map(cat =>
-  //   <div key={cat._id} className="mx-3">
-  //     {cat.name} {cat.colour}
-  //     <button className="px-3 text-center font-semibold uppercase rounded-xl py-3"
-  //             onClick={() => dispatch(catSelected(cat))}
-  //     >
-  //       Обрати студента
-  //     </button>
-  //   </div>
-  // )
 
   return (
     <>
-      <h2 className="font-bold text-xl mb-5">Курси</h2>
-      <div className="grid grid-cols-2 gap-4">
-        {data &&
-          data.map((course) => (
-            <div key={course._id} className="border p-4 rounded">
-              <h3 className="text-lg font-bold">{course.title}</h3>
-              <p className="text-gray-600">{course.description}</p>
-              <img src={course.previewImageUrl} alt={course.title} />
-              <button className="px-4 py-2 bg-blue-500 text-white rounded">
-                Перейти
-              </button>
-            </div>
-          ))}
+      <h2 className="font-bold text-3xl mb-8 text-center">Курси</h2>
+      <div className="container mx-auto px-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {data &&
+            data.map((course) => (
+              <div key={course._id} className="border p-6 rounded-lg shadow-lg">
+                <img
+                  src={course.previewImageUrl}
+                  alt={course.name}
+                  className="w-full h-48 object-cover rounded-t-lg mb-4"
+                />
+                <h3 className="text-2xl font-bold mb-2">{course.name}</h3>
+                <p className="text-gray-600 mb-4">{course.description}</p>
+                <div className="flex justify-between items-center mb-4">
+                  <span className="text-gray-500">
+                    Тривалість: {course.duration} днів
+                  </span>
+                  <span className="text-gray-500">
+                    Рейтинг: {course.rating} / 5
+                  </span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-500">
+                    Початок: {new Date(course.startDate).toLocaleDateString()}
+                  </span>
+                  <span className="text-gray-500">
+                    Кінець: {new Date(course.endDate).toLocaleDateString()}
+                  </span>
+                </div>
+                <button className="mt-4 px-4 py-2 bg-blue-500 text-white rounded">
+                  Перейти
+                </button>
+              </div>
+            ))}
+        </div>
       </div>
     </>
   );

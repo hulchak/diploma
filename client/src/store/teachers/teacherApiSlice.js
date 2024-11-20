@@ -2,34 +2,33 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { BASE_URL } from '../../config';
 import { authService } from '../../service/authService.js';
 
-export const catApiSlice = createApi({
-  reducerPath: 'catApi',
-  tagTypes: ['Cats'],
+export const teacherApiSlice = createApi({
+  reducerPath: 'teacherApi',
+  tagTypes: ['Teachers'],
   baseQuery: fetchBaseQuery({
     baseUrl: BASE_URL,
     prepareHeaders: (headers) => {
-      console.log(headers);
       const authResult = authService.getToken();
-      console.log(authResult);
-      headers.set('Authorization', 'Bearer ' + authResult);
+      headers.set('Authorization', `Bearer ${authResult}`);
       headers.set('Accept', 'application/json');
       headers.set('Content-Type', 'application/json');
+      return headers;
     },
   }),
   endpoints: (builder) => ({
-    fetchCats: builder.query({
-      query: () => `/cats`,
-      providesTags: ['Cats'],
+    fetchTeachers: builder.query({
+      query: () => `/teachers`,
+      providesTags: ['Teachers'],
     }),
-    addCat: builder.mutation({
-      query: (cat) => ({
-        url: `/cats`,
+    addTeacher: builder.mutation({
+      query: (teacher) => ({
+        url: `/teachers`,
         method: 'POST',
-        body: cat,
+        body: teacher,
       }),
-      invalidatesTags: ['Cats'],
+      invalidatesTags: ['Teachers'],
     }),
   }),
 });
 
-export const { useFetchCatsQuery, useAddCatMutation } = catApiSlice;
+export const { useFetchTeachersQuery, useAddTeacherMutation } = teacherApiSlice;
