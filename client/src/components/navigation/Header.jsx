@@ -1,18 +1,26 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { authService } from '../../service/authService.js';
-// import { useSelector } from 'react-redux';
 
 export default function Header({ name, role }) {
+  const navigate = useNavigate();
+  const isLoggedIn = authService.isLoggedIn();
+
   const logout = () => {
     authService.logout('http://localhost:3000/');
   };
 
+  const login = () => {
+    authService.login();
+  };
+
   const getProfileLink = () => {
+    console.log('Current role:', role); // Додамо для дебагу
     if (role === 'teacher') {
       return '/profile/teacher';
     } else if (role === 'student') {
       return '/profile/student';
     }
+    return '/';
   };
 
   return (
@@ -29,6 +37,12 @@ export default function Header({ name, role }) {
           >
             Курси
           </NavLink>
+          <NavLink
+            to="/profile/settings"
+            className="text-gray-600 hover:text-gray-900"
+          >
+            Профіль
+          </NavLink>
         </div>
         <div className="flex items-center gap-4">
           <input
@@ -36,23 +50,34 @@ export default function Header({ name, role }) {
             placeholder="Пошук"
             className="border px-2 py-1 rounded-md"
           />
-          {name && (
+          {isLoggedIn && name && (
             <div className="text-black font-jost text-[18px] font-medium leading-[27px] capitalize">
-              Привіт {name}
+              Привіт {role} {name}
             </div>
           )}
-          <NavLink
-            to={getProfileLink()}
-            className="bg-blue-500 text-white px-4 py-2 rounded-md cursor-pointer"
-          >
-            Профіль
-          </NavLink>
-          <div
-            className="bg-blue-500 text-white px-4 py-2 rounded-md cursor-pointer"
-            onClick={logout}
-          >
-            Вийти
-          </div>
+          {isLoggedIn ? (
+            <>
+              <NavLink
+                to={getProfileLink()}
+                className="bg-blue-500 text-white px-4 py-2 rounded-md cursor-pointer"
+              >
+                Кабінет
+              </NavLink>
+              <div
+                className="bg-blue-500 text-white px-4 py-2 rounded-md cursor-pointer"
+                onClick={logout}
+              >
+                Вийти
+              </div>
+            </>
+          ) : (
+            <div
+              className="bg-blue-500 text-white px-4 py-2 rounded-md cursor-pointer"
+              onClick={login}
+            >
+              Зайти / Реєстрація
+            </div>
+          )}
         </div>
       </nav>
     </header>

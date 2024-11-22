@@ -1,4 +1,4 @@
-import HeaderPublic from './components/navigarion/HeaderPublic.jsx';
+import Header from './components/navigation/Header.jsx';
 import { authService } from './service/authService.js';
 import { jwtDecode } from 'jwt-decode';
 // import { useNavigate } from 'react-router-dom';
@@ -42,7 +42,7 @@ export default function App() {
 
   return (
     <>
-      <HeaderPublic name={name} learningRole={learningRole} />
+      <Header name={name} role={learningRole} /> {}
       <main className="pt-20">
         {/* Головний банер */}
         <section className="text-center py-20 bg-gray-100">
