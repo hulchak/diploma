@@ -1,139 +1,73 @@
-import { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import {
-  selectCurrentCourse,
-  courseSelected,
-} from '../../store/courses/coursesSlice.js';
-import {
-  useFetchCoursesQuery,
-  useAddCoursesMutation,
-} from '../../store/courses/coursesApiSlice.js';
+import { useFieldArray } from 'react-hook-form';
+import CourseBasicInfoForm from './forms/CourseBasicInfoForm';
+import CourseModuleForm from './forms/CourseModuleForm';
+import { useCourseForm } from './hooks/useCourseForm';
 
 export default function Teacher() {
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
-  const [duration, setDuration] = useState('');
-  const [startDate, setStartDate] = useState('');
-  const [endDate, setEndDate] = useState('');
-  const [subject, setSubject] = useState('');
-  const [previewImageUrl, setPreviewImageUrl] = useState('');
+  const { methods, onSubmit } = useCourseForm();
+  const {
+    register,
+    control,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = methods;
 
-  const dispatch = useDispatch();
-  const currentCourse = useSelector(selectCurrentCourse);
-
-  useEffect(() => {
-    if (currentCourse) {
-      setName(currentCourse.name);
-      setDescription(currentCourse.description);
-      setDuration(currentCourse.duration);
-      setStartDate(currentCourse.startDate);
-      setEndDate(currentCourse.endDate);
-      setSubject(currentCourse.subject);
-      setPreviewImageUrl(currentCourse.previewImageUrl);
-    }
-  }, [currentCourse]);
-
-  const { data } = useFetchCoursesQuery();
-  const [addCourse] = useAddCoursesMutation();
-
-  function submit(e) {
-    e.preventDefault();
-
-    addCourse({
-      name,
-      description,
-      duration,
-      startDate,
-      endDate,
-      subject,
-      previewImageUrl,
-    });
-  }
-
-  function selectCourse(course) {
-    dispatch(courseSelected(course));
-  }
-
-  const courses = data?.map((course) => (
-    <div key={course._id} className="mx-3">
-      {course.name} {course.description}
-      <button
-        className="px-3 text-center font-semibold uppercase rounded-xl py-3"
-        onClick={() => selectCourse(course)}
-      >
-        Обрати курс
-      </button>
-    </div>
-  ));
+  const { fields: moduleFields, append: appendModule } = useFieldArray({
+    control,
+    name: 'modules',
+  });
 
   return (
-    <>
-      <form className="w-full" onSubmit={(e) => submit(e)}>
-        <h2 className="font-bold text-xl mb-5">Курси</h2>
-        <input
-          className="w-full block px-5 py-2.5 mb-7 appearance-none border rounded-3xl"
-          onChange={(event) => setName(event.target.value)}
-          value={name}
-          type="text"
-          placeholder="Імʼя"
-          required
-        />
-        <input
-          className="w-full block px-5 py-2.5 mb-7 appearance-none border rounded-3xl"
-          onChange={(event) => setDescription(event.target.value)}
-          value={description}
-          type="text"
-          placeholder="Опис"
-          required
-        />
-        <input
-          className="w-full block px-5 py-2.5 mb-7 appearance-none border rounded-3xl"
-          onChange={(event) => setDuration(event.target.value)}
-          value={duration}
-          type="number"
-          placeholder="Тривалість (дні)"
-          required
-        />
-        <input
-          className="w-full block px-5 py-2.5 mb-7 appearance-none border rounded-3xl"
-          onChange={(event) => setStartDate(event.target.value)}
-          value={startDate}
-          type="date"
-          placeholder="Дата початку"
-          required
-        />
-        <input
-          className="w-full block px-5 py-2.5 mb-7 appearance-none border rounded-3xl"
-          onChange={(event) => setEndDate(event.target.value)}
-          value={endDate}
-          type="date"
-          placeholder="Дата закінчення"
-          required
-        />
-        <input
-          className="w-full block px-5 py-2.5 mb-7 appearance-none border rounded-3xl"
-          onChange={(event) => setSubject(event.target.value)}
-          value={subject}
-          type="text"
-          placeholder="Предмет"
-          required
-        />
-        <input
-          className="w-full block px-5 py-2.5 mb-7 appearance-none border rounded-3xl"
-          onChange={(event) => setPreviewImageUrl(event.target.value)}
-          value={previewImageUrl}
-          type="text"
-          placeholder="URL зображення"
-          required
-        />
+    <form
+      className="w-full max-w-4xl mx-auto p-6"
+      onSubmit={handleSubmit(onSubmit)}
+    >
+      <h2 className="font-bold text-2xl mb-6">Створення нового курсу</h2>
+
+      <CourseBasicInfoForm register={register} errors={errors} />
+
+      <div className="mb-8">
+        <h3 className="font-semibold text-xl mb-4">Модулі та уроки</h3>
+
+        {moduleFields.map((module, index) => (
+          <CourseModuleForm
+            key={module.id}
+            control={control}
+            register={register}
+            setValue={setValue}
+            moduleIndex={index}
+          />
+        ))}
+
         <button
-          type="submit"
-          className="w-full text-center font-semibold uppercase rounded-xl py-3"
+          type="button"
+          onClick={() =>
+            appendModule({
+              moduleTitle: '',
+              lessons: [
+                {
+                  lessonTitle: '',
+                  lessonType: 'video',
+                  duration: 0,
+                  attachmentUrl: '',
+                  materials: [],
+                },
+              ],
+            })
+          }
+          className="px-4 py-2 bg-blue-500 text-white rounded"
         >
-          Створити
+          Додати модуль
         </button>
-      </form>
-      {courses}
-    </>
+      </div>
+
+      <button
+        type="submit"
+        className="w-full px-4 py-2 bg-green-600 text-white rounded font-semibold"
+      >
+        Створити курс
+      </button>
+    </form>
   );
 }

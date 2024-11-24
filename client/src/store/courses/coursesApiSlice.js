@@ -12,8 +12,8 @@ export const coursesApiSlice = createApi({
       const authResult = authService.getToken();
       console.log(authResult);
       headers.set('Authorization', 'Bearer ' + authResult);
-      headers.set('Accept', 'application/json');
-      headers.set('Content-Type', 'application/json');
+      // headers.set('Accept', 'application/json');
+      // headers.set('Content-Type', 'application/json');
     },
   }),
   endpoints: (builder) => ({
@@ -29,7 +29,45 @@ export const coursesApiSlice = createApi({
       }),
       invalidatesTags: ['Courses'],
     }),
+    uploadFile: builder.mutation({
+      query: (file) => {
+        const formData = new FormData();
+        formData.append('video', file);
+        console.log(formData);
+        console.log(file);
+
+        return {
+          url: '/courses/upload',
+          method: 'POST',
+          body: formData,
+          // headers: {
+          //   'Content-Type': 'multipart/form-data',
+          //   Accept: 'multipart/form-data',
+          // },
+
+          // prepareHeaders: (headers) => {
+          //   console.log(headers);
+          //   const authResult = authService.getToken();
+          //   console.log(authResult);
+          //   headers.set('Authorization', 'Bearer ' + authResult);
+          //   headers.set('Accept', 'multipart/form-data');
+          //   headers.set('Content-Type', 'multipart/form-data');
+          // },
+          // Remove Content-Type header to let browser set it with boundary
+          // prepareHeaders: (headers) => {
+          //   const authResult = authService.getToken();
+          //   headers.set('Authorization', `Bearer ${authResult}`);
+          //   headers.set('Content-Type', 'multipart/form-data');
+          //   return headers;
+          // },
+        };
+      },
+    }),
   }),
 });
 
-export const { useFetchCoursesQuery, useAddCoursesMutation } = coursesApiSlice;
+export const {
+  useFetchCoursesQuery,
+  useAddCoursesMutation,
+  useUploadFileMutation,
+} = coursesApiSlice;
