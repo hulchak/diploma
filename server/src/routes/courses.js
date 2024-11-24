@@ -2,23 +2,25 @@ import express from 'express';
 import multer from 'multer';
 import path from 'path';
 import { v4 as uuidv4 } from 'uuid';
-import ffmpeg from 'fluent-ffmpeg';
+import { exec } from 'child_process';
 import keycloak from '../auth/keycloak.js';
 import Course from '../model/courses.js';
 import Teacher from '../model/teacher.js';
-import { fileURLToPath } from 'url';
+// import { fileURLToPath } from 'url';
 import fs from 'fs';
 
 const router = express.Router();
 router.use(keycloak.protect());
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+// const __filename = fileURLToPath(import.meta.url);
+// console.log(__filename);
+const __dirname = import.meta.dirname;
+console.log('dirname:', __dirname);
 
 // Налаштування multer для збереження файлів
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    const uploadPath = path.join(__dirname, '../../uploads/videos/');
+    const uploadPath = 'uploads/videos/raw/';
     if (!fs.existsSync(uploadPath)) {
       fs.mkdirSync(uploadPath, { recursive: true });
     }
@@ -54,27 +56,28 @@ router.post('/upload', upload.single('video'), (req, res) => {
     }
 
     const inputPath = req.file.path;
+    console.log('Video uploaded:', inputPath);
     const outputPath = path.join(
-      __dirname,
-      `../../uploads/videos/compressed-${req.file.filename}`
+      'uploads/videos/compressed/',
+      `${req.file.filename}`
     );
+    console.log('Output path:', outputPath);
 
-    ffmpeg(inputPath)
-      .output(outputPath)
-      .videoCodec('libx265') // Використовуємо libx265 для кращого стискання
-      .outputOptions('-crf 23') // Налаштування CRF для високої якості
-      .size('640x?')
-      .on('end', () => {
-        console.log('Video compression complete');
-        res.json({
-          url: `http://localhost:8090/videos/compressed-${req.file.filename}`,
-        });
-      })
-      .on('error', (err) => {
-        console.error('FFmpeg error:', err);
-        res.status(500).json({ error: err.message });
-      })
-      .run();
+    exec(
+      `ffmpeg -i ${inputPath} -c:v libx264 -preset slow -crf 23 ${outputPath}`,
+      (error, stdout) => {
+        if (error) {
+          console.error(`Error: ${error.message}`);
+          return;
+        }
+        console.log('Compression complete!', stdout);
+      }
+    );
+    return res.status(200).json({
+      message: 'File uploaded successfully',
+      filename: req.file.filename,
+    });
+    // .run();
   } catch (err) {
     console.error('Server error:', err);
     res.status(500).json({ error: err.message });
@@ -89,9 +92,11 @@ router.post('/', async (req, res) => {
   console.log(keycloakId);
   let teacher = await Teacher.findOne({ keycloakId: keycloakId });
   console.log(teacher);
+  console.log('materials:', JSON.stringify(req.body.modules));
   let course = new Course({
     ...req.body,
     createdBy: teacher._id,
+    content: req.body.modules,
   });
   try {
     let result = await course.save();

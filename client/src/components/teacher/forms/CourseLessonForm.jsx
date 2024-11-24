@@ -48,7 +48,11 @@ export default function CourseLessonForm({
       const response = await uploadFile(file).unwrap();
       setValue(
         `modules.${moduleIndex}.lessons.${lessonIndex}.attachmentUrl`,
-        response.url
+        response.filename
+      );
+      console.log(
+        `modules.${moduleIndex}.lessons.${lessonIndex}.attachmentUrl`,
+        response.filename
       );
       setUploadStatus({ loading: false, error: null });
     } catch (err) {
