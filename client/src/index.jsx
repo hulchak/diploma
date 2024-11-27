@@ -13,6 +13,9 @@ const Teacher = lazy(() => import('./components/teacher/Teacher.jsx'));
 const Student = lazy(() => import('./components/student/Student.jsx'));
 const Courses = lazy(() => import('./components/courses/Courses.jsx'));
 const Profile = lazy(() => import('./components/profile/Profile.jsx'));
+const CourseDetails = lazy(() =>
+  import('./components/courses/CourseDetails.jsx')
+);
 
 const router = createBrowserRouter([
   {
@@ -38,6 +41,10 @@ const router = createBrowserRouter([
       {
         path: 'settings',
         element: <Profile />,
+      },
+      {
+        path: 'courses/:courseId',
+        element: <CourseDetails />,
       },
     ],
   },

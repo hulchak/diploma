@@ -113,4 +113,17 @@ router.get('/', async (req, res) => {
   res.send(results).status(200);
 });
 
+// Add new route for getting course by id
+router.get('/:id', async (req, res) => {
+  try {
+    const course = await Course.findById(req.params.id);
+    if (!course) {
+      return res.status(404).json({ message: 'Course not found' });
+    }
+    res.json(course);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
 export default router;

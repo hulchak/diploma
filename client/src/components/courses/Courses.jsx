@@ -1,4 +1,5 @@
 import { useFetchCoursesQuery } from '../../store/courses/coursesApiSlice.js';
+import { Link } from 'react-router-dom';
 
 export default function Courses() {
   const { data } = useFetchCoursesQuery();
@@ -23,9 +24,12 @@ export default function Courses() {
                   <span className="text-gray-500">
                     Тривалість: {course.duration} днів
                   </span>
-                  <button className="px-4 py-2 bg-blue-500 text-white rounded">
+                  <Link
+                    to={`/profile/courses/${course._id}`}
+                    className="mt-4 px-4 py-2 bg-blue-500 text-white rounded inline-block"
+                  >
                     Перейти
-                  </button>
+                  </Link>
                 </div>
               </div>
             ))}

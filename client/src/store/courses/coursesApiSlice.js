@@ -7,19 +7,25 @@ export const coursesApiSlice = createApi({
   tagTypes: ['Courses'],
   baseQuery: fetchBaseQuery({
     baseUrl: BASE_URL,
-    prepareHeaders: (headers) => {
-      console.log(headers);
+    prepareHeaders: (headers, { endpoint }) => {
+      console.log(endpoint);
       const authResult = authService.getToken();
-      console.log(authResult);
       headers.set('Authorization', 'Bearer ' + authResult);
-      // headers.set('Accept', 'application/json');
-      // headers.set('Content-Type', 'application/json');
+      if (endpoint !== 'uploadFile') {
+        headers.set('Accept', 'application/json');
+        headers.set('Content-Type', 'application/json');
+      }
+      return headers;
     },
   }),
   endpoints: (builder) => ({
     fetchCourses: builder.query({
       query: () => `/courses`,
       providesTags: ['Courses'],
+    }),
+    fetchCourseById: builder.query({
+      query: (id) => `/courses/${id}`,
+      providesTags: (result, error, id) => [{ type: 'Courses', id }],
     }),
     addCourses: builder.mutation({
       query: (courses) => ({
@@ -68,6 +74,7 @@ export const coursesApiSlice = createApi({
 
 export const {
   useFetchCoursesQuery,
+  useFetchCourseByIdQuery,
   useAddCoursesMutation,
   useUploadFileMutation,
 } = coursesApiSlice;

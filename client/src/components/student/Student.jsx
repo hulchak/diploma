@@ -1,6 +1,5 @@
-// import { useState } from 'react';
 import { useFetchCoursesQuery } from '../../store/courses/coursesApiSlice.js';
-// import {useDispatch} from "react-redux";
+import { Link } from 'react-router-dom';
 
 export default function Student() {
   const { data } = useFetchCoursesQuery();
@@ -37,9 +36,12 @@ export default function Student() {
                     Кінець: {new Date(course.endDate).toLocaleDateString()}
                   </span>
                 </div>
-                <button className="mt-4 px-4 py-2 bg-blue-500 text-white rounded">
+                <Link
+                  to={`/profile/courses/${course._id}`}
+                  className="mt-4 px-4 py-2 bg-blue-500 text-white rounded inline-block"
+                >
                   Перейти
-                </button>
+                </Link>
               </div>
             ))}
         </div>
