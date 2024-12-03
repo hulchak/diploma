@@ -1,9 +1,22 @@
 import { useParams } from 'react-router-dom';
+import { useState } from 'react';
 import { useFetchCourseByIdQuery } from '../../store/courses/coursesApiSlice.js';
 
 export default function CourseDetails() {
   const { courseId } = useParams();
   const { data: course, isLoading } = useFetchCourseByIdQuery(courseId);
+  const [expandedModules, setExpandedModules] = useState({});
+
+  const getVideoUrl = (filename) => {
+    return `http://localhost:8090/videos/compressed/${filename}`;
+  };
+
+  const toggleModule = (moduleIndex) => {
+    setExpandedModules((prev) => ({
+      ...prev,
+      [moduleIndex]: !prev[moduleIndex],
+    }));
+  };
 
   if (isLoading) {
     return <div className="text-center py-8">Loading...</div>;
@@ -32,27 +45,61 @@ export default function CourseDetails() {
           <h2 className="text-2xl font-bold mb-6">Зміст курсу</h2>
           {course.content.map((module, moduleIndex) => (
             <div key={moduleIndex} className="mb-6">
-              <h3 className="text-xl font-semibold mb-4">
-                Модуль {moduleIndex + 1}: {module.moduleTitle}
-              </h3>
-              <div className="ml-4 space-y-3">
-                {module.lessons.map((lesson, lessonIndex) => (
-                  <div
-                    key={lessonIndex}
-                    className="flex items-center gap-4 p-3 bg-gray-50 rounded"
-                  >
-                    <div className="w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center">
-                      {lessonIndex + 1}
+              <button
+                onClick={() => toggleModule(moduleIndex)}
+                className="w-full flex items-center justify-between text-xl font-semibold p-4 bg-gray-50 rounded hover:bg-gray-100 transition-colors"
+              >
+                <span>
+                  Модуль {moduleIndex + 1}: {module.moduleTitle}
+                </span>
+                <svg
+                  className={`w-6 h-6 transition-transform ${
+                    expandedModules[moduleIndex] ? 'transform rotate-180' : ''
+                  }`}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M19 9l-7 7-7-7"
+                  />
+                </svg>
+              </button>
+
+              {expandedModules[moduleIndex] && (
+                <div className="mt-4 ml-4 space-y-3">
+                  {module.lessons.map((lesson, lessonIndex) => (
+                    <div key={lessonIndex} className="p-4 bg-gray-50 rounded">
+                      <div className="flex items-center gap-4 mb-3">
+                        <div className="w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center">
+                          {lessonIndex + 1}
+                        </div>
+                        <div>
+                          <h4 className="font-medium">{lesson.lessonTitle}</h4>
+                          <p className="text-sm text-gray-500">
+                            {lesson.lessonType} • {lesson.duration} хв
+                          </p>
+                        </div>
+                      </div>
+                      {lesson.lessonType === 'video' &&
+                        lesson.attachmentUrl && (
+                          <div className="mt-4">
+                            <video
+                              controls
+                              className="w-full rounded"
+                              src={getVideoUrl(lesson.attachmentUrl)}
+                            >
+                              Your browser does not support video playback.
+                            </video>
+                          </div>
+                        )}
                     </div>
-                    <div>
-                      <h4 className="font-medium">{lesson.lessonTitle}</h4>
-                      <p className="text-sm text-gray-500">
-                        {lesson.lessonType} • {lesson.duration} хв
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
+              )}
             </div>
           ))}
         </div>
