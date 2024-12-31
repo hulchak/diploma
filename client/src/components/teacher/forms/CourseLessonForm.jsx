@@ -18,11 +18,11 @@ export default function CourseLessonForm({
     const file = e.target.files[0];
     if (!file) return;
 
-    // Check file size (100MB limit)
-    if (file.size > 100 * 1024 * 1024) {
+    // Check file size (1GB limit)
+    if (file.size > 1024 * 1024 * 1024) {
       setUploadStatus({
         loading: false,
-        error: 'Файл занадто великий. Максимальний розмір - 100MB',
+        error: 'Файл занадто великий. Максимальний розмір - 1 ГБ',
       });
       return;
     }

@@ -1,16 +1,30 @@
 [
   {
-    "name": "Alice Johnson",
-    "subjects": ["Math", "Physics"],
-    "email": "alice.johnson@example.com",
-    "keycloakId": "123e4567-e89b-12d3-a456-426614174000",
-    "courses": ["60d0fe4f5311236168a109ca", "60d0fe4f5311236168a109cb"]
+    "name": "Carol White",
+    "subjects": ["Computer Science", "Algorithms"],
+    "email": "carol.white@example.com",
+    "keycloakId": "123e4567-e89b-12d3-a456-426614174002",
+    "courses": ["60d0fe4f5311236168a109ce", "60d0fe4f5311236168a109cf"]
   },
   {
-    "name": "Bob Brown",
-    "subjects": ["Chemistry", "Biology"],
-    "email": "bob.brown@example.com",
-    "keycloakId": "123e4567-e89b-12d3-a456-426614174001",
-    "courses": ["60d0fe4f5311236168a109cc", "60d0fe4f5311236168a109cd"]
+    "name": "David Green",
+    "subjects": ["Machine Learning", "Data Science"],
+    "email": "david.green@example.com",
+    "keycloakId": "123e4567-e89b-12d3-a456-426614174003",
+    "courses": ["60d0fe4f5311236168a109d0", "60d0fe4f5311236168a109d1"]
+  },
+  {
+    "name": "Eva Blue",
+    "subjects": ["Operating Systems", "Networks"],
+    "email": "eva.blue@example.com",
+    "keycloakId": "123e4567-e89b-12d3-a456-426614174004",
+    "courses": ["60d0fe4f5311236168a109d2", "60d0fe4f5311236168a109d3"]
+  },
+  {
+    "name": "Frank Black",
+    "subjects": ["Software Engineering", "Databases"],
+    "email": "frank.black@example.com",
+    "keycloakId": "123e4567-e89b-12d3-a456-426614174005",
+    "courses": ["60d0fe4f5311236168a109d4", "60d0fe4f5311236168a109d5"]
   }
 ]

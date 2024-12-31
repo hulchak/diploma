@@ -19,5 +19,12 @@
     "teacher": "60d0fe4f5311236168a109d0",
     "students": ["60d0fe4f5311236168a109d1"],
     "uuid": "uuid-subject3"
+  },
+  {
+    "name": "Машинне навчання",
+    "description": "Опис предмету Машинне навчання",
+    "teacher": "60d0fe4f5311236168a109d2",
+    "students": ["60d0fe4f5311236168a109d3"],
+    "uuid": "uuid-subject4"
   }
 ]
